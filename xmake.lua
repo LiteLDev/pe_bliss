@@ -1,5 +1,7 @@
 add_rules("mode.debug", "mode.release")
 
+set_runtimes("MD")
+
 target("pe_bliss")
     set_kind("static")
     set_languages("c++17")

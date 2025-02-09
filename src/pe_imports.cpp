@@ -735,7 +735,15 @@ const image_directory rebuild_imports_base(pe_base& pe, const imported_functions
 	pe.recalculate_section_sizes(import_section, import_settings.auto_strip_last_section_enabled());
 
 	//Return information about rebuilt import directory
-	image_directory ret(pe.rva_from_section_offset(import_section, import_settings.get_offset_from_section_start() + needed_size_for_strings), needed_size - needed_size_for_strings);
+	image_directory ret(
+		pe.rva_from_section_offset(
+			import_section,
+			import_settings.get_offset_from_section_start() + needed_size_for_strings
+		),
+		import_section.get_raw_data().length()
+			- import_settings.get_offset_from_section_start()
+			- needed_size_for_strings
+	);
 
 	//If auto-rewrite of PE headers is required
 	if(import_settings.auto_set_to_pe_headers())
